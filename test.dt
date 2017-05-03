@@ -1,0 +1,5 @@
+var string
+string = "Hello World"
+
+print string
+print 1
