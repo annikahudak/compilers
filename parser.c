@@ -74,8 +74,6 @@ void command(char *line) {
         print(line_words[1]);
     } else if(strcmp(line_words[0], "var") == 0) {
         savevar();
-        //var *vari = line_words[2];
-        //list_add(vari);
     } else {
         // no command found, maybe it's a variable operation
         var *vari = list_search(line_words[0]);
@@ -83,6 +81,17 @@ void command(char *line) {
             variable_op(vari, type);
         }
     }
+}
+int open(char line[]){
+	char opener[] = "Good Morning!";
+	if(strcmp(line, "\n") != 0) {
+    	if(strcmp(line, opener) == 0){
+			return 0;
+		}
+    }
+
+	
+	return 1;
 }
 
 
@@ -99,10 +108,18 @@ int main(int argc, char **argv) {
     if(f) {
         // file exists, start parsing
         char line[100];
+        int count = 0;
+        int valid = 0;
         while(fgets(line, sizeof(line), f) != NULL) {
             if(strcmp(line, "\n") != 0) {
+            	if(count == 0){
+            		valid = open(line);
+            		printf("%d\n", valid );
+            	}
+         
                 command(line);
             }
+            count++;
         }
     } else {
         // file doesn't exist
