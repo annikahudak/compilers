@@ -2,7 +2,8 @@
 ## Running
 
 ```
-gcc parser.c -o parser
-./parser prog.ho
+gcc parser.c list.c -o go
+./go test.dt
 ```
-Replace `prog.ho` with any input filename.
+
+"go" above can be any word
