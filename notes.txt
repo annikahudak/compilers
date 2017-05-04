@@ -1,0 +1,13 @@
+Good Morning!
+
+Tech News: 
+	~ variable = 2
+	~ variable1 = 5
+	~ newVariable
+
+newVariable = variable + variable1
+
+print newVariable
+
+
+
