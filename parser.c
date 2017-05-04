@@ -83,15 +83,23 @@ void command(char *line) {
     }
 }
 int open(char line[]){
-	char opener[] = "Good Morning!";
-	if(strcmp(line, "\n") != 0) {
-    	if(strcmp(line, opener) == 0){
-			return 0;
-		}
-    }
 
-	
-	return 1;
+	printf("%s\n", "We are in open.\n");
+
+	const char* opener = "Good Morning!";
+	//char opener[14] = "Good Morning!";
+	//if(strcmp(line, "\n") != 0) {
+		//printf("%s\n", "HEY");
+    	if(strcmp(line, opener) == 0){
+    		printf("%s\n", "There is indeed Good Morning.");
+    		printf("%s\n", line);
+			return 1;
+		}
+    //}
+
+	printf("%s\n", "No Good Morning :(");
+	printf("%s\n", line);
+	return 0;
 }
 
 
