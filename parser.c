@@ -102,6 +102,9 @@ int open(char line[]){
 	printf("%s\n", line);
 	return 0;
 }
+void badMorning(){
+	printf("%s\n", "\nERROR: \n  >> You're missing the Good in your Morning!!!\n");
+}
 
 
 
@@ -124,9 +127,19 @@ int main(int argc, char **argv) {
             	if(count == 0){
             		valid = open(line);
             		printf("%d\n", valid );
+
+            		if(valid == 0){
+            			badMorning();
+            			//printf("%s\n", "You're missing the Good in your Morning!!!");
+            			break;
+            		}
             	}
-         
+         		
                 command(line);
+            }
+            else{
+            	badMorning();
+            	break;
             }
             count++;
         }

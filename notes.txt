@@ -1,13 +1,17 @@
 Good Morning!
 
 Tech News: 
-	~ variable = 2
-	~ variable1 = 5
-	~ newVariable
+	~ variable IS 2
+	~ variable1 IS 5
+	~ name IS "Trump"
+	~ class IS interesting
+	~ newVariable 
 
-newVariable = variable + variable1
+newVariable IS variable AND variable1
 
-print newVariable
+if class SEEMS interesting > newVariable AND 1 
+
+Uh newVariable
 
 
 
