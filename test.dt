@@ -1,6 +1,6 @@
 Good Morning!
 
-var string
-string IS "Hello World"
+~ string IS "Hello World"
+
 
 print string
