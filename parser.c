@@ -18,7 +18,7 @@ void savevar() {
 
 void variable_op(var *variable, int type) {
     // check if it's an assignment
-    if(strncmp(line_words[1], "=", 1) == 0) {
+    if(strncmp(line_words[1], "IS", 1) == 0) {
         variable->type = type;
         if(type == 0) {
             variable->integer = atoi(line_words[2]);
@@ -72,9 +72,18 @@ void command(char *line) {
     if(strcmp(line_words[0], "print") == 0) {
         printf("There was a print statement: \n");
         print(line_words[1]);
-    } else if(strcmp(line_words[0], "~") == 0) {
+    } else if(strcmp(line_words[0], "~") == 0 && strcmp(line_words[2], "IS") == 0) {
         printf("Trying to declare a variable: %s", line_words[1]);
         savevar();
+
+        if(strcmp(line_words[2], "IS") == 0) {
+            var *vari = list_search(line_words[0]);
+            if(vari) {
+                printf("currently unreachable");
+                variable_op(vari, type);
+            }
+        }
+
     } else {
         printf("no command found, maybe it's a variable operation\n");
         var *vari = list_search(line_words[0]);
