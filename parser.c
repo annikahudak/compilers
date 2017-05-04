@@ -86,11 +86,12 @@ int open(char line[]){
 
 	printf("%s\n", "We are in open.\n");
 
+	const char* firstLine = line;
 	const char* opener = "Good Morning!";
 	//char opener[14] = "Good Morning!";
 	//if(strcmp(line, "\n") != 0) {
 		//printf("%s\n", "HEY");
-    	if(strcmp(line, opener) == 0){
+    	if(strncmp(line, opener, 13) == 0){
     		printf("%s\n", "There is indeed Good Morning.");
     		printf("%s\n", line);
 			return 1;
