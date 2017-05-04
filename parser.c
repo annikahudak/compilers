@@ -41,7 +41,6 @@ void print(char *word) {
             printf("%s\n", vari->string);
         }
     } else {
-    	printf("%s\n", "UM");
         printf("%s\n", word);
     }
 }
@@ -69,15 +68,18 @@ void command(char *line) {
         }
         i++;
     }
-    
+    printf("%s\n", line_words[0]);
     if(strcmp(line_words[0], "print") == 0) {
+        printf("There was a print statement: \n");
         print(line_words[1]);
-    } else if(strcmp(line_words[0], "var") == 0) {
+    } else if(strcmp(line_words[0], "~") == 0) {
+        printf("Trying to declare a variable: %s", line_words[1]);
         savevar();
     } else {
-        // no command found, maybe it's a variable operation
+        printf("no command found, maybe it's a variable operation\n");
         var *vari = list_search(line_words[0]);
         if(vari) {
+            printf("currently unreachable");
             variable_op(vari, type);
         }
     }
@@ -85,7 +87,7 @@ void command(char *line) {
 void badMorning(){
 	printf("%s\n", "\nERROR: \n  >> You're missing the Good in your Morning!!!\n");
 }
-int open(char line[]){
+int validateMorning(char line[]){
 	
 	const char* firstLine = line;
 	const char* opener = "Good Morning!";
@@ -93,7 +95,7 @@ int open(char line[]){
     if(strncmp(line, opener, 13) == 0){
 			return 1;
 	}
-	badMorning();
+	//badMorning();
 	return 0;
 }
 int validateNews(char nextLine[]){
@@ -109,6 +111,8 @@ int validateNews(char nextLine[]){
 
 
 int main(int argc, char **argv) {
+
+    int startFile = 0;
     
     if(argc < 2) {
         help();
@@ -122,25 +126,29 @@ int main(int argc, char **argv) {
         int count = 0;
         int valid = 0;
 
-        while(fgets(line, sizeof(line), f) != NULL) {
+        while((fgets(line, sizeof(line), f) != NULL) && (startFile == 0)) {
+            // strcmp evaluates to 0 if the strings are the same
             if(strcmp(line, "\n") != 0) {
-            	if(count == 0){
-            		valid = open(line);
-            		printf("%d\n", valid );
-
-            		if(valid == 0){
-            			break;
-            		}
-            	}
-         		
-                command(line);
-            }
-            else{
-            	badMorning();
-            	break;
+                if(validateMorning(line)) {
+                    startFile = 1;
+                    printf("encountered good morning \n");
+                }
+         		else {
+                    badMorning();
+                    break;
+                }
+                
             }
             count++;
         }
+        if(startFile == 1) {
+            while(fgets(line, sizeof(line), f) != NULL) {
+
+                printf("line contains more than just a new line\n");
+                command(line);
+            }
+        }
+        
     } else {
         // file doesn't exist
         help();

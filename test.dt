@@ -1,7 +1,6 @@
 Good Morning!
-var string
-string = "Hello World"
+~ HELLOIMAVAR = "Hello World"
 
 
-print string
+print PRINTME
 print 1
