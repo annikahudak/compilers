@@ -1,6 +1,6 @@
 Good Morning!
 
 var string
-string = "Hello World"
+string IS "Hello World"
 
 print string

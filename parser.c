@@ -18,7 +18,7 @@ void savevar() {
 
 void variable_op(var *variable, int type) {
     // check if it's an assignment
-    if(strncmp(line_words[1], "=", 1) == 0) {
+    if(strncmp(line_words[1], "IS", 1) == 0) {
         variable->type = type;
         if(type == 0) {
             variable->integer = atoi(line_words[2]);
@@ -33,15 +33,11 @@ void print(char *word) {
     if(vari) {
         // variable with that name exists, just print the value
         if(vari->type == 0) {
-        	printf("%s\n", "WE AN INT YO" );
             printf("%d\n", vari->integer);
         } else if(vari->type == 2) {
-        	printf("%s\n", "WE A STRING YO" );
-
             printf("%s\n", vari->string);
         }
     } else {
-    	printf("%s\n", "UM");
         printf("%s\n", word);
     }
 }
