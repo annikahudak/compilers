@@ -135,7 +135,7 @@ int main(int argc, char **argv) {
          		
                 command(line);
             }
-            else{
+            else if(valid == 0){
             	badMorning();
             	break;
             }
