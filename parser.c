@@ -82,9 +82,12 @@ void command(char *line) {
         }
     }
 }
+void badMorning(){
+	printf("%s\n", "\nERROR: \n  >> You're missing the Good in your Morning!!!\n");
+}
 int open(char line[]){
 
-	printf("%s\n", "We are in open.\n");
+	//printf("%s\n", "We are in open.\n");
 
 	const char* firstLine = line;
 	const char* opener = "Good Morning!";
@@ -92,20 +95,25 @@ int open(char line[]){
 	//if(strcmp(line, "\n") != 0) {
 		//printf("%s\n", "HEY");
     	if(strncmp(line, opener, 13) == 0){
-    		printf("%s\n", "There is indeed Good Morning.");
-    		printf("%s\n", line);
+    		//printf("%s\n", "There is indeed Good Morning.");
+    		//printf("%s\n", line);
 			return 1;
 		}
     //}
-
-	printf("%s\n", "No Good Morning :(");
-	printf("%s\n", line);
+	badMorning();
+	//printf("%s\n", "No Good Morning :(");
+	//printf("%s\n", line);
 	return 0;
 }
-void badMorning(){
-	printf("%s\n", "\nERROR: \n  >> You're missing the Good in your Morning!!!\n");
-}
+int validateNews(char nextLine[]){
+	const char* line = nextLine;
+	const char* news = "Tech News:";
 
+	if(strncmp(line, news, 10) == 0){
+		return 1;
+	}
+	return 0;
+}
 
 
 
@@ -128,11 +136,11 @@ int main(int argc, char **argv) {
             		valid = open(line);
             		printf("%d\n", valid );
 
-            		if(valid == 0){
+            		/*if(valid == 0){
             			badMorning();
             			//printf("%s\n", "You're missing the Good in your Morning!!!");
             			break;
-            		}
+            		}*/
             	}
          		
                 command(line);
