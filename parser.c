@@ -12,7 +12,7 @@ void help() {
 }
 void savevar() {
     var *variable = (var *) malloc(sizeof(var));
-    strcpy(variable->name, line_words[1]);
+    strcpy(variable->name, line_words[2]);
     list_add(variable);
 }
 
@@ -27,17 +27,21 @@ void variable_op(var *variable, int type) {
         }
     }*/
 
-    if(strncmp(line_words[0], "~", 1) == 0 && strncmp(line_words[2], "IS", 1) == 0) {
+    //if(strncmp(line_words[0], "	~", 1) == 0 && strncmp(line_words[2], "IS", 1) == 0) {
 	    variable->type = type;
 	    if(type == 0) {
 	        variable->integer = atoi(line_words[3]);
 	    } else if(type == 2) {
+	    	int i = 3;
 	        strcpy(variable->string, line_words[3]);
 	    }
-    }
+	    else {
+	    	printf("%s", "welp\n");
+	    }
+   /* }
     else {
         printf("invalid syntax \n");
-    }
+    }*/
 }
 
 void print(char *word) {
@@ -80,29 +84,38 @@ void command(char *line) {
         }
         i++;
     }
-    printf("%s\n", line_words[0]);
+    printf("OH HELLO %s \n", line_words[0]);
+
+    //int len = strlen(line_words[0]);
+
     if(strcmp(line_words[0], "print") == 0) {
         printf("There was a print statement: \n");
-        print(line_words[1]);
-    } else if(strcmp(line_words[1], "~") == 0 && strcmp(line_words[3], "IS") == 0) {
-        printf("Trying to declare a variable: %s", line_words[2]);
-        savevar();
+        printf("EHH %s \n",line_words[1]);
 
-        if(strcmp(line_words[3], "IS") == 0) {
-            var *vari = list_search(line_words[0]);
+    } else if(strcmp(line_words[0], "	~") == 0 && strcmp(line_words[2], "IS") == 0) {
+        //what message to give if it doesn't go in here?
+        // for lines that look like:
+        // ~ string
+        print("did i work");
+        savevar();
+        //if(strcmp(line_words[2], "IS") == 0){
+            // for lines that look like:
+            // ~ string IS "hello"
+        printf("WAAA -- %s\n", line_words[1] );
+            var *vari = list_search(line_words[1]);
             if(vari) {
-                printf("currently unreachable");
                 variable_op(vari, type);
             }
-        }
-
-    } else {
-        printf("no command found, maybe it's a variable operation\n");
+        //}
+    } else if(list_search(line_words[0])){
+        // no command found, maybe it's a variable operation
+        // check that it's a variable that has been saved (list_search)
         var *vari = list_search(line_words[0]);
         if(vari) {
-            printf("currently unreachable");
             variable_op(vari, type);
         }
+    } else {
+    	print("Aint none of the above darlin");
     }
 }
 void badMorning(){
@@ -180,6 +193,7 @@ int main(int argc, char **argv) {
 	            	if(validateNews(line)) {
 	                   //printf("encountered good news \n");
 	                   found = 1;
+	                   break;
 	                }
 	            }
 	        }
@@ -188,9 +202,10 @@ int main(int argc, char **argv) {
             	return 0;
             }
         }
+       // command(line);
+
         while(fgets(line, sizeof(line), f) != NULL) {
         	if(strcmp(line, "\n") != 0) {
-        		printf("LINE : %s", line);
                	command(line);
             }
 	    }
