@@ -17,7 +17,11 @@ void savevar() {
 }
 
 void variable_op(var *variable, int type) {
+<<<<<<< HEAD
     // check if it's an assignment
+=======
+   /* // check if it's an assignment
+>>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
     if(strncmp(line_words[1], "IS", 1) == 0) {
         variable->type = type;
         if(type == 0) {
@@ -25,6 +29,18 @@ void variable_op(var *variable, int type) {
         } else if(type == 2) {
             strcpy(variable->string, line_words[2]);
         }
+    }*/
+
+    if(strncmp(line_words[0], "~", 1) == 0 && strncmp(line_words[2], "IS", 1) == 0) {
+	    variable->type = type;
+	    if(type == 0) {
+	        variable->integer = atoi(line_words[3]);
+	    } else if(type == 2) {
+	        strcpy(variable->string, line_words[3]);
+	    }
+    }
+    else {
+        printf("invalid syntax \n");
     }
 }
 
@@ -72,11 +88,19 @@ void command(char *line) {
     if(strcmp(line_words[0], "print") == 0) {
         printf("There was a print statement: \n");
         print(line_words[1]);
+<<<<<<< HEAD
     } else if(strcmp(line_words[0], "~") == 0 && strcmp(line_words[2], "IS") == 0) {
         printf("Trying to declare a variable: %s", line_words[1]);
         savevar();
 
         if(strcmp(line_words[2], "IS") == 0) {
+=======
+    } else if(strcmp(line_words[1], "~") == 0 && strcmp(line_words[3], "IS") == 0) {
+        printf("Trying to declare a variable: %s", line_words[2]);
+        savevar();
+
+        if(strcmp(line_words[3], "IS") == 0) {
+>>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
             var *vari = list_search(line_words[0]);
             if(vari) {
                 printf("currently unreachable");
@@ -116,6 +140,9 @@ int validateNews(char nextLine[]){
 	}
 	return 0;
 }
+void badNews(){
+	printf("%s\n", "\nERROR: \n >> You're missing your Tech News!\n");
+}
 
 
 
@@ -132,14 +159,20 @@ int main(int argc, char **argv) {
     if(f) {
         // file exists, start parsing
         char line[100];
-        int count = 0;
-        int valid = 0;
+        //int count = 0;
+        //int valid = 0;
 
+<<<<<<< HEAD
+=======
+        int found = 0;
+
+>>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
         while((fgets(line, sizeof(line), f) != NULL) && (startFile == 0)) {
             // strcmp evaluates to 0 if the strings are the same
             if(strcmp(line, "\n") != 0) {
                 if(validateMorning(line)) {
                     startFile = 1;
+<<<<<<< HEAD
                     printf("encountered good morning \n");
                 }
          		else {
@@ -147,9 +180,40 @@ int main(int argc, char **argv) {
                     break;
                 }
                 
+=======
+                    found = 1;
+                   // printf("encountered good morning \n");
+                }
+         		/*else {
+                    badMorning();
+                    break;
+                }*/
+                
             }
-            count++;
+            //count++;
         }
+        if(found == 0){
+        	badMorning();
+        	return 0;
+        }
+        found = 0;
+        if(startFile == 1) {
+        	
+            while(fgets(line, sizeof(line), f) != NULL && found == 0) {
+            	if(strcmp(line, "\n") != 0) {
+	            	if(validateNews(line)) {
+	                   //printf("encountered good news \n");
+	                   found = 1;
+	                }
+	            }
+	        }
+            if(found == 0){
+            	badNews();
+            	return 0;
+>>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
+            }
+        }
+<<<<<<< HEAD
         if(startFile == 1) {
             while(fgets(line, sizeof(line), f) != NULL) {
 
@@ -157,6 +221,15 @@ int main(int argc, char **argv) {
                 command(line);
             }
         }
+=======
+        while(fgets(line, sizeof(line), f) != NULL) {
+        	if(strcmp(line, "\n") != 0) {
+        		printf("LINE : %s", line);
+               	command(line);
+            }
+	    }
+            
+>>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
         
     } else {
         // file doesn't exist
