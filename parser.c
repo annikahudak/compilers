@@ -110,7 +110,7 @@ int open(char line[]){
 	
 	const char* firstLine = line;
 	const char* opener = "Good Morning!";
-
+    
     if(strncmp(line, opener, 13) == 0){
 			return 1;
 	}
@@ -118,13 +118,17 @@ int open(char line[]){
 	return 0;
 }
 int validateNews(char nextLine[]){
-	const char* line = nextLine;
-	const char* news = "Tech News:";
+    const char* line = nextLine;
+    const char* news = "Tech News:\n";
 
-	if(strncmp(line, news, 10) == 0){
-		return 1;
-	}
-	return 0;
+    if(strcmp(line, news) == 0){
+        return 1;
+    }
+    return 0;
+}
+
+void badNews(){
+    printf("%s\n", "\nERROR: \n >> You're missing your Tech News!\n");
 }
 
 
@@ -142,8 +146,15 @@ int main(int argc, char **argv) {
         char line[100];
         int count = 0;
         int valid = 0;
+        int hasNews = 0;
 
         while(fgets(line, sizeof(line), f) != NULL) {
+
+            hasNews = validateNews(line);
+            if(hasNews) {
+               printf("encountered good news \n");
+            }
+
             if(strcmp(line, "\n") != 0) {
             	if(count == 0){
             		valid = open(line);
@@ -153,15 +164,16 @@ int main(int argc, char **argv) {
             			break;
             		}
             	}
-         		
                 command(line);
             }
             else if(valid == 0){
             	badMorning();
             	break;
             }
+            
             count++;
         }
+
     } else {
         // file doesn't exist
         help();

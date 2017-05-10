@@ -1,6 +1,8 @@
 Good Morning!
 
-~ string IS "Hello World"
+Tech News:
+
+~ s IS "Hello World"
 
 
-print string
+print s
