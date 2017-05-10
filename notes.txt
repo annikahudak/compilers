@@ -1,0 +1,46 @@
+Welcome to CPSC-402!
+
+Roster:
+	Student Name
+	Student Bonk
+	BonkBonk
+
+// [David Tyler enters having just gotten off plane]
+
+[Student Name enters with a MAC] // 1, add student to array of students
+
+[Student Bonk enters with a PC] // -1, add student to array of students
+
+David Tyler:
+	Good morning! Any tech news?
+
+Student Name:
+	(Raises hand slowly & surely) // add 1 and multiply by 4, "ly" = *2
+	(Raises hand)
+	Hello im saying things and things are happening to you.
+
+Student Bonk:
+	("Disturbance") // subtract value
+	I am also doing that.
+	(Coughs) // decrement 1
+
+BonkBonk:
+	(Walks to the board) 
+
+StudentName:
+	(Leaves board) // reset value to zero
+
+BonkBonk:
+	(Charges laptop at front of room) // reset value
+
+(StudentName high fives BonkBonk) // StudentName = StudentName + BonkBonk ????
+
+(BonkBonk laughs at Student Name) // BonkBonk = BonkBonk - StudentName  ?????
+
+(BonkBonk mutters) // print numbers
+(Student Name yells) // print letters
+
+
+
+
+
