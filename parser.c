@@ -114,7 +114,6 @@ int open(char line[]){
     if(strncmp(line, opener, 13) == 0){
 			return 1;
 	}
-	badMorning();
 	return 0;
 }
 int validateNews(char nextLine[]){
@@ -141,6 +140,7 @@ int main(int argc, char **argv) {
     }
     
     FILE *f = fopen(argv[1], "r");
+    FILE *f2 = fopen(argv[1], "r");
     if(f) {
         // file exists, start parsing
         char line[100];
@@ -150,29 +150,28 @@ int main(int argc, char **argv) {
 
         while(fgets(line, sizeof(line), f) != NULL) {
 
-            hasNews = validateNews(line);
-            if(hasNews) {
-               printf("encountered good news \n");
+            if(strcmp(line, "\n") != 0 && open(line) == 1) {
+            	valid = 1;
+            	printf("valid opener\n");
             }
-
-            if(strcmp(line, "\n") != 0) {
-            	if(count == 0){
-            		valid = open(line);
-            		printf("valid opener: %d\n", valid );
-
-            		if(valid == 0){
-            			break;
-            		}
-            	}
-                command(line);
+            if(validateNews(line) == 1){
+                print("encountered good news\n");
+                hasNews = 1;
             }
-            else if(valid == 0){
-            	badMorning();
-            	break;
-            }
-            
-            count++;
         }
+
+        if(valid == 1){
+            while(fgets(line, sizeof(line), f2) != NULL) {
+                if(strcmp(line, "\n") != 0){
+                    command(line);
+                }
+            }
+        }
+        else{
+            badMorning();
+        }
+
+        
 
     } else {
         // file doesn't exist
