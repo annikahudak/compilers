@@ -1,46 +1,56 @@
+//The file must start with the words:
 Welcome to CPSC-402!
 
+//The next portion is a "roster" of students, whose names are the variables that will be used in the program
 Roster:
-	Student Name
-	Student Bonk
+	Student_Name
+	Student_Bonk
 	BonkBonk
 
+//this next part is a joke
 // [David Tyler enters having just gotten off plane]
+
+//Lines follow with brackets. these serve to initialize variables with values
+//if students enter with a MAC, they are initialized to 1, if they enter with a PC, initialized to -1
+//as students enter, they are added to an array of struct(Student) which we will create:
+// struct Student {
+//	char* name,
+//	int val
+//}
 
 [Student Name enters with a MAC] // 1, add student to array of students
 
 [Student Bonk enters with a PC] // -1, add student to array of students
 
+//calculations begin once DT says:
 David Tyler:
 	Good morning! Any tech news?
 
-Student Name:
+//Raises hand = increment the student's value by 1
+//adverbs (words with "ly") following action multiply by 2 per adverb
+//Cough = decrement the student's value by 1
+Student_Name:
 	(Raises hand slowly & surely) // add 1 and multiply by 4, "ly" = *2
-	(Raises hand)
+	(Raises hand) // add 1
 	Hello im saying things and things are happening to you.
 
-Student Bonk:
-	("Disturbance") // subtract value
+Student_Bonk:
+	(Causes a disturbance loudly) // multiply by 2. action is ignored bc its not a keyword for us
 	I am also doing that.
 	(Coughs) // decrement 1
 
-BonkBonk:
-	(Walks to the board) 
-
 StudentName:
-	(Leaves board) // reset value to zero
+	(Leaves classroom) // Student removed from array
 
 BonkBonk:
-	(Charges laptop at front of room) // reset value
+	(falls asleep) // this could be something
+	(Charges laptop at front of room) // this could too
 
-(StudentName high fives BonkBonk) // StudentName = StudentName + BonkBonk ????
+(StudentName high fives BonkBonk) // StudentName = StudentName + BonkBonk
 
-(BonkBonk laughs at Student Name) // BonkBonk = BonkBonk - StudentName  ?????
+(BonkBonk laughs at Student Name) // BonkBonk = BonkBonk - StudentName
 
-(BonkBonk mutters) // print numbers
-(Student Name yells) // print letters
-
-
-
+(BonkBonk mutters) // print the integer value held by BonkBonk
+(Student Name yells) // print the alphanumeric (ASCII/Hexadecimal) value held by Student_Name -- this allows us to print strings)
 
 
