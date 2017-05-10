@@ -17,15 +17,6 @@ void savevar() {
 }
 
 void variable_op(var *variable, int type) {
-    // check if it's an assignment
-    // if(strncmp(line_words[1], "IS", 1) == 0) {
-    //     variable->type = type;
-    //     if(type == 0) {
-    //         variable->integer = atoi(line_words[2]);
-    //     } else if(type == 2) {
-    //         strcpy(variable->string, line_words[2]);
-    //     }
-    // }
 
     if(strncmp(line_words[0], "~", 1) == 0 && strncmp(line_words[2], "IS", 1) == 0) {
         variable->type = type;
@@ -103,15 +94,15 @@ void command(char *line) {
     }
 }
 
-void badMorning(){
-	printf("%s\n", "\nERROR: \n  >> You're missing the Good in your Morning!!!\n");
+void badOpening(){
+	printf("%s\n", "\nERROR: \n  >> You're missing the class opener!\n");
 }
 int open(char line[]){
 	
 	const char* firstLine = line;
-	const char* opener = "Good Morning!";
+	const char* opener = "Welcome to CPSC-402!";
     
-    if(strncmp(line, opener, 13) == 0){
+    if(strncmp(line, opener, 20) == 0){
 			return 1;
 	}
 	return 0;
@@ -169,7 +160,7 @@ int main(int argc, char **argv) {
             }
         }
         else{
-            badMorning();
+            badOpening();
         }
 
         
