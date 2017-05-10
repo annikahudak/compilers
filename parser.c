@@ -150,14 +150,15 @@ int main(int argc, char **argv) {
 
         while(fgets(line, sizeof(line), f) != NULL) {
 
-            if(strcmp(line, "\n") != 0 && open(line) == 1) {
+            if(strcmp(line, "\n") != 0 && open(line) == 1 && count == 0) {
             	valid = 1;
             	printf("valid opener\n");
             }
-            if(validateNews(line) == 1){
+            if(validateNews(line) == 1 && valid == 1){
                 print("encountered good news\n");
                 hasNews = 1;
             }
+            count++;
         }
 
         if(valid == 1){
