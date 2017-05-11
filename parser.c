@@ -11,6 +11,11 @@ int dt = 0;
 int dtValid = 0;
 int counter = 0;
 
+struct Student {
+	char* name,
+	int value
+}
+
 void help() {
 	printf("Usage: parser <filename>\n");
 }
@@ -120,9 +125,6 @@ void command(char *line) {
     		// student->value = ____
     	}
     }
-    
-
-
     // positive +1
     // if line contains "raises hand"
     else if(strstr(line, "Raises hand") != NULL){
