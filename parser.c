@@ -100,7 +100,8 @@ void command(char *line) {
     } 
 
     // negative -1
-    else if(strcpy(line, "Coughs") == 0){
+    // if line contains "cough"
+    else if(strstr(line, "Coughs") != NULL){
         // multiply by countOfAdverbs if != 0
     }
 
