@@ -2,71 +2,40 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "list.h"
-#include "variables.h"
+typedef struct {
+    char* name;
+    int value;
+} Student;
 
-char line_words[5][MAX_STRING];
+typedef struct {
+    int value;
+} A;
+
+char line_words[5][256];
+int students[10];
+int dt = 0;
+int dtValid = 0;
+int counter = 0;
+
+Student curr_student = {NULL, 0};
+
+A ex = {1};
+//curr_student->name = "A";
+//curr_student->value = 1;
+
+
 
 void help() {
 	printf("Usage: parser <filename>\n");
-}
-void savevar() {
-    var *variable = (var *) malloc(sizeof(var));
-    strcpy(variable->name, line_words[1]);
-    list_add(variable);
-}
-
-void variable_op(var *variable, int type) {
-<<<<<<< HEAD
-    // check if it's an assignment
-=======
-   /* // check if it's an assignment
->>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
-    if(strncmp(line_words[1], "IS", 1) == 0) {
-        variable->type = type;
-        if(type == 0) {
-            variable->integer = atoi(line_words[2]);
-        } else if(type == 2) {
-            strcpy(variable->string, line_words[2]);
-        }
-    }*/
-
-    if(strncmp(line_words[0], "~", 1) == 0 && strncmp(line_words[2], "IS", 1) == 0) {
-	    variable->type = type;
-	    if(type == 0) {
-	        variable->integer = atoi(line_words[3]);
-	    } else if(type == 2) {
-	        strcpy(variable->string, line_words[3]);
-	    }
-    }
-    else {
-        printf("invalid syntax \n");
-    }
-}
-
-void print(char *word) {
-    var *vari = list_search(word);
-    if(vari) {
-        // variable with that name exists, just print the value
-        if(vari->type == 0) {
-        	printf("%s\n", "WE AN INT YO" );
-            printf("%d\n", vari->integer);
-        } else if(vari->type == 2) {
-        	printf("%s\n", "WE A STRING YO" );
-
-            printf("%s\n", vari->string);
-        }
-    } else {
-        printf("%s\n", word);
-    }
 }
 
 void command(char *line) {
     // remove the \n at the end from fgets
     line[strcspn(line, "\n")] = 0;
-    char *line2;
+    char* line2;
     int i = 0, type = 0;
     
+    // separate line into line_words array
     line2 = strtok(line, " ");
     while(line2 != NULL) {
         if(line2[0] == '"') {
@@ -84,153 +53,133 @@ void command(char *line) {
         }
         i++;
     }
-    printf("%s\n", line_words[0]);
-    if(strcmp(line_words[0], "print") == 0) {
-        printf("There was a print statement: \n");
-        print(line_words[1]);
-<<<<<<< HEAD
-    } else if(strcmp(line_words[0], "~") == 0 && strcmp(line_words[2], "IS") == 0) {
-        printf("Trying to declare a variable: %s", line_words[1]);
-        savevar();
 
-        if(strcmp(line_words[2], "IS") == 0) {
-=======
-    } else if(strcmp(line_words[1], "~") == 0 && strcmp(line_words[3], "IS") == 0) {
-        printf("Trying to declare a variable: %s", line_words[2]);
-        savevar();
 
-        if(strcmp(line_words[3], "IS") == 0) {
->>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
-            var *vari = list_search(line_words[0]);
-            if(vari) {
-                printf("currently unreachable");
-                variable_op(vari, type);
-            }
+    // adverbs
+   /* int countOfAdverbs = 0;
+    for(int x=0; x< sizeof(line_words)/sizeof(line_words[0]); ++x){
+        int c = 0;
+        char sub[2];
+        char* s = line_words[x];
+        while(c < strlen(s)-2) {
+            sub[c] = s[c+strlen(s)-2];
+            c++;
         }
-
-    } else {
-        printf("no command found, maybe it's a variable operation\n");
-        var *vari = list_search(line_words[0]);
-        if(vari) {
-            printf("currently unreachable");
-            variable_op(vari, type);
+        if(strcpy(s, "ly") == 0){
+            countOfAdverbs++;
         }
+    }*/
+
+    // if found "David Tyler" check to see if he says Goodmorning
+    if(dt == 1 && counter == 0){
+    	if(strstr(line, "Good") != NULL){
+    		dtValid = 1;
+    		printf("%s","valid Goodmorning\n");
+    	}else{
+    		printf("%s\n", "\nERROR: \n  >> Class must start with Goodmorning.\n");
+    	}
+    	counter++;
     }
+    // David Tyler Goodmorning
+    if(strcmp(line_words[0], "David") == 0){
+    	dt = 1;
+    }
+    // determine which student is talking/doing an action --> set curr_student
+    else if(strstr(line_words[0], ":") != NULL) {
+        //this is a new variable context. change current_student to whoevers talking
+        //remove the :
+        char *s_name = line_words[0];
+        s_name[strlen(s_name)-1] = 0;
+        curr_student.name = s_name;
+
+        printf("Current student: %s\n", curr_student.name);
+    }
+    // print statement
+    else if(strcmp(line_words[0], "print") == 0) {
+        printf("%s",line_words[1]);
+    }
+    // student (variable) declaration
+    else if(strncmp(line_words[0], "[", 1) == 0){
+    	// new student
+    	// add student to array
+    	if(strstr(line, "MAC") != NULL){
+    		// student->value = ____
+    	}
+    	else if(strstr(line, "PC") != NULL){
+    		// student->value = ____
+    	}
+    }
+    // positive +1
+    // if line contains "raises hand"
+    else if(strstr(line, "Raises hand") != NULL){
+        printf("The line contains raises hand\n");
+    } 
+
+    // negative -1
+    // if line contains "cough"
+    else if(strstr(line, "Coughs") != NULL){
+        // multiply by countOfAdverbs if != 0
+    }
+
 }
-void badMorning(){
-	printf("%s\n", "\nERROR: \n  >> You're missing the Good in your Morning!!!\n");
-}
-int validateMorning(char line[]){
+
+
+
+int open(char line[]){
 	
 	const char* firstLine = line;
-	const char* opener = "Good Morning!";
-
-    if(strncmp(line, opener, 13) == 0){
+	const char* opener = "Welcome to CPSC-402!";
+    
+    if(strncmp(line, opener, 20) == 0){
 			return 1;
 	}
-	//badMorning();
 	return 0;
 }
-int validateNews(char nextLine[]){
-	const char* line = nextLine;
-	const char* news = "Tech News:";
 
-	if(strncmp(line, news, 10) == 0){
-		return 1;
-	}
-	return 0;
+void badOpening(){
+    printf("%s\n", "\nERROR: \n  >> You're missing the class opener!\n");
 }
-void badNews(){
-	printf("%s\n", "\nERROR: \n >> You're missing your Tech News!\n");
-}
-
-
 
 int main(int argc, char **argv) {
-
-    int startFile = 0;
     
     if(argc < 2) {
         help();
         return 1;
     }
-    
+
     FILE *f = fopen(argv[1], "r");
+    FILE *f2 = fopen(argv[1], "r");
     if(f) {
         // file exists, start parsing
         char line[100];
-        //int count = 0;
-        //int valid = 0;
+        int count = 0;
+        int valid = 0;
+        int hasNews = 0;
 
-<<<<<<< HEAD
-=======
-        int found = 0;
+        while(fgets(line, sizeof(line), f) != NULL) {
 
->>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
-        while((fgets(line, sizeof(line), f) != NULL) && (startFile == 0)) {
-            // strcmp evaluates to 0 if the strings are the same
-            if(strcmp(line, "\n") != 0) {
-                if(validateMorning(line)) {
-                    startFile = 1;
-<<<<<<< HEAD
-                    printf("encountered good morning \n");
-                }
-         		else {
-                    badMorning();
-                    break;
-                }
-                
-=======
-                    found = 1;
-                   // printf("encountered good morning \n");
-                }
-         		/*else {
-                    badMorning();
-                    break;
-                }*/
-                
+            if(strcmp(line, "\n") != 0 && open(line) == 1){ // && count == 0) {
+            	valid = 1;
+            	printf("valid opener\n");
+            	break;
             }
             //count++;
         }
-        if(found == 0){
-        	badMorning();
-        	return 0;
-        }
-        found = 0;
-        if(startFile == 1) {
-        	
-            while(fgets(line, sizeof(line), f) != NULL && found == 0) {
-            	if(strcmp(line, "\n") != 0) {
-	            	if(validateNews(line)) {
-	                   //printf("encountered good news \n");
-	                   found = 1;
-	                }
-	            }
-	        }
-            if(found == 0){
-            	badNews();
-            	return 0;
->>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
-            }
-        }
-<<<<<<< HEAD
-        if(startFile == 1) {
-            while(fgets(line, sizeof(line), f) != NULL) {
 
-                printf("line contains more than just a new line\n");
-                command(line);
+        if(valid == 1){
+            while(fgets(line, sizeof(line), f2) != NULL) {
+                if(strcmp(line, "\n") != 0){
+                    command(line);
+                }
             }
+
         }
-=======
-        while(fgets(line, sizeof(line), f) != NULL) {
-        	if(strcmp(line, "\n") != 0) {
-        		printf("LINE : %s", line);
-               	command(line);
-            }
-	    }
-            
->>>>>>> 31c39a9c3ec8595f453f5b97cf769ea2016497f4
+        else{
+            badOpening();
+        }
+
         
+
     } else {
         // file doesn't exist
         help();
