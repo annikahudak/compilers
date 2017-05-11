@@ -8,10 +8,10 @@ int dt = 0;
 int dtValid = 0;
 int counter = 0;
 
-struct Student {
+typedef struct {
 	char* name;
 	int value;
-};
+} Student;
 
 void help() {
 	printf("Usage: parser <filename>\n");
