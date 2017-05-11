@@ -1,17 +1,67 @@
-Good Morning!
+//The file must start with the words:
+Welcome to CPSC-402!
 
-Tech News: 
-	~ variable IS 2
-	~ variable1 IS 5
-	~ name IS "Trump"
-	~ class IS interesting
-	~ newVariable 
+//this next part is a joke
+// [David Tyler enters having just gotten off plane]
 
-newVariable IS variable AND variable1
+//Lines follow with brackets. these serve to initialize variables with values
+//if students enter with a MAC, they are initialized to 1, if they enter with a PC, initialized to -1
+//as students enter, they are added to an array of struct(Student) which we will create:
+// struct Student {
+//	char* name,
+//	int val
+//}
 
-if class SEEMS interesting > newVariable AND 1 
+[Student Name enters with a MAC] // 1, add student to array of students
 
-Uh newVariable
+[Student Bonk enters with a PC] // -1, add student to array of students
+
+//calculations begin once DT says:
+David Tyler:
+	Good morning! Any tech news?
+
+//Raises hand = increment the student's value by 1
+//adverbs (words with "ly") following action multiply by 2 per adverb
+//Cough = decrement the student's value by 1
+Student_Name:
+	(Raises hand slowly & surely) // add 1 and multiply by 4, "ly" = *2
+	(Raises hand) // add 1
+	Hello im saying things and things are happening to you.
+
+Student_Bonk:
+	(Causes a disturbance loudly) // multiply by 2. action is ignored bc its not a keyword for us
+	I am also doing that.
+	(Coughs) // decrement 1
+
+StudentName:
+	(Leaves classroom) // Student removed from array
+
+BonkBonk:
+	(falls asleep) // this could be something
+	(Charges laptop at front of room) // this could too
+
+(StudentName high fives BonkBonk) // StudentName = StudentName + BonkBonk
+
+(BonkBonk laughs at Student Name) // BonkBonk = BonkBonk - StudentName
+
+(BonkBonk mutters) // print the integer value held by BonkBonk
+(Student Name yells) // print the alphanumeric (ASCII/Hexadecimal) value held by Student_Name -- this allows us to print strings)
 
 
+--------------------------------------------------------
 
+To DO:
+
+1. Figure out putting new variables into the array
+2. All value changing methods (increment by 1, decrement, multiply by 2)
+3. Add variables values to each other, subtract variable values from each other
+4. Print int
+5. Print string
+
+implementation:
+--> move through lines in file
+	if the line is a variable name: curr_variable = variable name
+----> go word by word through line
+-------> if word is "RAISES_HAND" : increment curr_variable by 1
+-------> else if word is "COUGHS" : decrement curr_variable by 1
+-------> else if word ends in "ly" : multiply curr_variable by 2
