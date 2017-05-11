@@ -3,16 +3,19 @@
 #include <stdlib.h>
 
 char line_words[5][256];
-int students[10];
+
 int dt = 0;
 int dtValid = 0;
 int counter = 0;
-Student *current;
+
 
 typedef struct {
 	char* name;
 	int value;
 } Student;
+
+Student *current;
+Student* students[10];
 
 void help() {
 	printf("Usage: parser <filename>\n");
@@ -82,8 +85,9 @@ void command(char *line) {
     else if(strncmp(line_words[0], "[", 1) == 0){
     	// new student
     	// add student to array
-    	Student s;
-    	s->name = line_words[1];
+    	Student *s;
+    	strcpy(s->name, line_words[1]);
+    	//s.name = line_words[1];
     	if(strstr(line, "MAC") != NULL){
     		// student->value = ____
     		s->value = 1;
@@ -97,7 +101,7 @@ void command(char *line) {
     	}
     	// check for empty slot in student array then add student there
     	for(int i = 0; i < 10; i++){
-    		if(students[i] == NULL){
+    		if(students[i] == 0){
     			students[i] = s;
     		}
     	}
