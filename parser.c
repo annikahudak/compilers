@@ -7,6 +7,9 @@
 
 char line_words[5][MAX_STRING];
 int students[10];
+int dt = 0;
+int dtValid = 0;
+int counter = 0;
 
 void help() {
 	printf("Usage: parser <filename>\n");
@@ -73,7 +76,7 @@ void command(char *line) {
 
 
     // adverbs
-    int countOfAdverbs = 0;
+   /* int countOfAdverbs = 0;
     for(int x=0; x< sizeof(line_words)/sizeof(line_words[0]); ++x){
         int c = 0;
         char sub[2];
@@ -86,11 +89,24 @@ void command(char *line) {
         if(strcpy(s, "ly") == 0){
             countOfAdverbs++;
         }
-    }
+    }*/
 
-    
+    // if found "David Tyler" check to see if he says Goodmorning
+    if(dt == 1 && counter == 0){
+    	if(strstr(line, "Good") != NULL){
+    		dtValid = 1;
+    		print("valid Goodmorning");
+    	}else{
+    		printf("%s\n", "\nERROR: \n  >> Class must start with Goodmorning.\n");
+    	}
+    	counter++;
+    }
+    // David Tyler Goodmorning
+    if(strcmp(line_words[0], "David") == 0){
+    	dt = 1;
+    }
     // print statement
-    if(strcmp(line_words[0], "print") == 0) {
+    else if(strcmp(line_words[0], "print") == 0) {
         print(line_words[1]);
     }
     // student (variable) declaration
@@ -104,6 +120,8 @@ void command(char *line) {
     		// student->value = ____
     	}
     }
+    
+
 
     // positive +1
     // if line contains "raises hand"
@@ -162,12 +180,12 @@ int main(int argc, char **argv) {
 
         while(fgets(line, sizeof(line), f) != NULL) {
 
-            if(strcmp(line, "\n") != 0 && open(line) == 1 && count == 0) {
+            if(strcmp(line, "\n") != 0 && open(line) == 1){ // && count == 0) {
             	valid = 1;
             	printf("valid opener\n");
             	break;
             }
-            count++;
+            //count++;
         }
 
         if(valid == 1){
@@ -176,6 +194,7 @@ int main(int argc, char **argv) {
                     command(line);
                 }
             }
+
         }
         else{
             badOpening();
