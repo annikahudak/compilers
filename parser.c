@@ -6,7 +6,7 @@
 #include "variables.h"
 
 char line_words[5][MAX_STRING];
-int students[NUM_STUDENTS];
+int students[10];
 
 void help() {
 	printf("Usage: parser <filename>\n");
@@ -150,7 +150,7 @@ int main(int argc, char **argv) {
         help();
         return 1;
     }
-    
+
     FILE *f = fopen(argv[1], "r");
     FILE *f2 = fopen(argv[1], "r");
     if(f) {
