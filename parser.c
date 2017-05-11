@@ -2,10 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "list.h"
-#include "variables.h"
-
-char line_words[5][MAX_STRING];
+char line_words[5][256];
 int students[10];
 int dt = 0;
 int dtValid = 0;
@@ -18,40 +15,6 @@ struct Student {
 
 void help() {
 	printf("Usage: parser <filename>\n");
-}
-void savevar() {
-    var *variable = (var *) malloc(sizeof(var));
-    strcpy(variable->name, line_words[1]);
-    list_add(variable);
-}
-
-void variable_op(var *variable, int type) {
-
-    if(strncmp(line_words[0], "~", 1) == 0 && strncmp(line_words[2], "IS", 1) == 0) {
-        variable->type = type;
-        if(type == 0) {
-            variable->integer = atoi(line_words[3]);
-        } else if(type == 2) {
-            strcpy(variable->string, line_words[3]);
-        }
-    }
-    else {
-        printf("invalid syntax \n");
-    }
-}
-
-void print(char *word) {
-    var *vari = list_search(word);
-    if(vari) {
-        // variable with that name exists, just print the value
-        if(vari->type == 0) {
-            printf("%d\n", vari->integer);
-        } else if(vari->type == 2) {
-            printf("%s\n", vari->string);
-        }
-    } else {
-        printf("%s\n", word);
-    }
 }
 
 void command(char *line) {
@@ -100,7 +63,7 @@ void command(char *line) {
     if(dt == 1 && counter == 0){
     	if(strstr(line, "Good") != NULL){
     		dtValid = 1;
-    		print("valid Goodmorning");
+    		printf("%s","valid Goodmorning\n");
     	}else{
     		printf("%s\n", "\nERROR: \n  >> Class must start with Goodmorning.\n");
     	}
@@ -112,7 +75,7 @@ void command(char *line) {
     }
     // print statement
     else if(strcmp(line_words[0], "print") == 0) {
-        print(line_words[1]);
+        printf("%s",line_words[1]);
     }
     // student (variable) declaration
     else if(strncmp(line_words[0], "[", 1) == 0){
@@ -137,14 +100,6 @@ void command(char *line) {
         // multiply by countOfAdverbs if != 0
     }
 
-   	else if(list_search(line_words[0])){
-        // no command found, maybe it's a variable operation
-        // check that it's a variable that has been saved (list_search)
-        var *vari = list_search(line_words[0]);
-        if(vari) {
-            variable_op(vari, type);
-        }
-    }
 }
 
 
