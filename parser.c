@@ -51,6 +51,7 @@ void command(char *line) {
     char *line2;
     int i = 0, type = 0;
     
+    // separate line into line_words array
     line2 = strtok(line, " ");
     while(line2 != NULL) {
         if(line2[0] == '"') {
@@ -68,10 +69,43 @@ void command(char *line) {
         }
         i++;
     }
+
+
+    // adverbs
+    int countOfAdverbs = 0;
+    for(int x=0; x< sizeof(line_words)/sizeof(line_words[0]); ++x){
+        int c = 0;
+        char sub[2];
+        char* s = line_words[x];
+        while(c < strlen(s)-2) {
+            sub[c] = s[c+strlen(s)-2];
+            c++;
+        }
+
+        if(strcpy(s, "ly") == 0){
+            countOfAdverbs++;
+        }
+    }
+
     
+    // print statement
     if(strcmp(line_words[0], "print") == 0) {
         print(line_words[1]);
-    } else if(strcmp(line_words[0], "~") == 0 && strcmp(line_words[2], "IS") == 0) {
+    }
+
+    // positive +1
+    // if line contains "raises hand"
+    else if(strstr(line, "Raises hand") != NULL){
+        // multiply by countOfAdverbs if != 0
+    } 
+
+    // negative -1
+    else if(strcpy(line, "Coughs") == 0){
+        // multiply by countOfAdverbs if != 0
+    }
+
+
+    else if(strcmp(line_words[0], "~") == 0 && strcmp(line_words[2], "IS") == 0) {
         //what message to give if it doesn't go in here?
         // for lines that look like:
         // ~ string
@@ -84,7 +118,9 @@ void command(char *line) {
                 variable_op(vari, type);
             }
         }
-    } else if(list_search(line_words[0])){
+    } 
+
+    else if(list_search(line_words[0])){
         // no command found, maybe it's a variable operation
         // check that it's a variable that has been saved (list_search)
         var *vari = list_search(line_words[0]);
@@ -94,9 +130,8 @@ void command(char *line) {
     }
 }
 
-void badOpening(){
-	printf("%s\n", "\nERROR: \n  >> You're missing the class opener!\n");
-}
+
+
 int open(char line[]){
 	
 	const char* firstLine = line;
@@ -107,6 +142,12 @@ int open(char line[]){
 	}
 	return 0;
 }
+
+void badOpening(){
+    printf("%s\n", "\nERROR: \n  >> You're missing the class opener!\n");
+}
+
+
 int validateNews(char nextLine[]){
     const char* line = nextLine;
     const char* news = "Tech News:\n";
