@@ -12,9 +12,9 @@ int dtValid = 0;
 int counter = 0;
 
 struct Student {
-	char* name,
-	int value
-}
+	char* name;
+	int value;
+};
 
 void help() {
 	printf("Usage: parser <filename>\n");
