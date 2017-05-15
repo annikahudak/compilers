@@ -20,9 +20,11 @@ Welcome to CPSC-402!
 David Tyler:
 	Good morning! Any tech news?
 
-//Raises hand = increment the student's value by 1
-//adverbs (words with "ly") following action multiply by 2 per adverb
-//Cough = decrement the student's value by 1
+//Participates = increment the student's value by 1
+//adverbs with less than 10 characters(words with "ly") following action multiply by 2 per adverb
+//adverbs with more than 10 characters following action multiply by 5 per adverb
+//Sneeze = decrement the student's value by 1
+//"notebook" = reverse Student's value's sign (multiply by -1)
 Student_Name:
 	(Raises hand slowly & surely) // add 1 and multiply by 4, "ly" = *2
 	(Raises hand) // add 1
