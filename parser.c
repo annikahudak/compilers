@@ -2,20 +2,38 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "arraylist.h"
+
 char line_words[5][256];
 
 int dt = 0;
 int dtValid = 0;
 int counter = 0;
 
+int studentCounter = 0;
 
 typedef struct {
-	char* name;
+	int num;
+	char name[256];
 	int value;
 } Student;
 
-Student *current;
-Student* students[10];
+Student* current = NULL;
+
+Student* zero = NULL;// = (Student *) malloc(sizeof(Student));
+Student* one = NULL;// = (Student *) malloc(sizeof(Student));
+Student* two = NULL;// = (Student *) malloc(sizeof(Student));
+Student* three = NULL;// = (Student *) malloc(sizeof(Student));
+Student* four = NULL;//= (Student *) malloc(sizeof(Student));
+Student* five = NULL;// = (Student *) malloc(sizeof(Student)); 
+Student* six = NULL;//= (Student *) malloc(sizeof(Student));
+Student* seven = NULL;// = (Student *) malloc(sizeof(Student));
+Student* eight = NULL;// = (Student *) malloc(sizeof(Student));
+Student* nine = NULL;//= (Student *) malloc(sizeof(Student));
+
+//Arraylist list = arraylist_create( Boolean (*equals)(const Object object_1, const Object object_2));
+
+//Student* students[10] = {zero, one, two, three, four, five, six, seven, eight, nine};
 
 void help() {
 	printf("Usage: parser <filename>\n");
@@ -77,6 +95,16 @@ void command(char *line) {
     if(strcmp(line_words[0], "David") == 0){
     	dt = 1;
     }
+      // determine which student is talking/doing an action --> set curr_student
+    else if(strstr(line_words[0], ":") != NULL) {
+        //this is a new variable context. change current_student to whoevers talking
+        //remove the :
+        char *s_name = line_words[0];
+        s_name[strlen(s_name)-1] = 0;
+        strcpy(current->name, s_name);
+
+        printf("Current student: %s\n", current->name);
+    }
     // print statement
     else if(strcmp(line_words[0], "print") == 0) {
         printf("%s",line_words[1]);
@@ -85,26 +113,52 @@ void command(char *line) {
     else if(strncmp(line_words[0], "[", 1) == 0){
     	// new student
     	// add student to array
-    	Student *s;
-    	strcpy(s->name, line_words[1]);
-    	//s.name = line_words[1];
-    	if(strstr(line, "MAC") != NULL){
+    	
+
+    	//var *variable = (var *) malloc(sizeof(var));
+    	//strcpy(variable->name, line_words[1]);
+
+    	
+    	char *p = line_words[0];
+    	p++; 
+    	Student *s = (Student *) malloc(sizeof(Student));
+    	strcpy(s->name, p);
+
+    	char *comp = line_words[3];
+    	comp[strlen(comp)-1] = 0;
+
+
+
+    	if(strstr(comp, "MAC") != NULL){
     		// student->value = ____
     		s->value = 1;
+
+    		printf("%s has a %s\n", s->name, "MAC" );
     	}
-    	else if(strstr(line, "PC") != NULL){
+    	else if(strstr(comp, "PC") != NULL){
     		// student->value = ____
     		s->value = -1;
+
+    		printf("%s has a %s\n", s->name, "PC" );
     	}
     	else {
-    		printf("%s\n", "\nERROR: \n  >> Students \n");
+    		printf("%s\n", "\nERROR: \n  >> Student did not come prepared with a computer. \n");
+    		return;
     	}
-    	// check for empty slot in student array then add student there
-    	for(int i = 0; i < 10; i++){
-    		if(students[i] == 0){
-    			students[i] = s;
-    		}
+
+    	switch(studentCounter){
+    		case 0: zero = s; zero->num = studentCounter; printf("%s%s%d", "Student zero created.\n", zero->name, zero->num ); break;
+    		case 1: one = s; one->num = studentCounter; printf("%s%s%d", "Student one created.\n", one->name, one->num ); break;
+    		case 2: two = s; two->num = studentCounter; break;
+    		case 3: three = s; three->num = studentCounter; break;
+    		case 4: four = s; four->num = studentCounter; break;
+    		case 5: five = s; five->num = studentCounter; break;
+    		case 6: six = s; six->num = studentCounter; break;
+    		case 7: seven = s; seven->num = studentCounter; break;
+    		case 8: eight = s; eight->num = studentCounter; break;
+    		case 9: nine = s; nine->num = studentCounter; break;
     	}
+    	studentCounter++;
     }
     // positive +1
     // if line contains "raises hand"
@@ -119,8 +173,18 @@ void command(char *line) {
     }
 
 }
-
-
+/*void fillArray(){
+	for (int i = 0; i < 10; ++i)
+	{
+		Student *temp = (Student *) malloc(sizeof(Student)); 
+		students[i] = temp;
+	}
+}*/
+void printStudents(){
+	for(int i = 0; i < 10; i++){
+		//printf("%s\n", students[i]->name );
+	}
+}
 
 int open(char line[]){
 	
@@ -143,7 +207,7 @@ int main(int argc, char **argv) {
         help();
         return 1;
     }
-
+    //fillArray();
     FILE *f = fopen(argv[1], "r");
     FILE *f2 = fopen(argv[1], "r");
     if(f) {
@@ -169,7 +233,7 @@ int main(int argc, char **argv) {
                     command(line);
                 }
             }
-
+            printStudents();
         }
         else{
             badOpening();
