@@ -40,13 +40,14 @@ BonkBonk:
 	(falls asleep) // this could be something
 	(Charges laptop at front of room) // this could too
 
-(StudentName high fives BonkBonk) // StudentName = StudentName + BonkBonk
+(StudentName highfives BonkBonk) // StudentName = StudentName + BonkBonk
 
-(BonkBonk laughs at Student Name) // BonkBonk = BonkBonk - StudentName
+(BonkBonk punches Student Name) // BonkBonk = BonkBonk - StudentName
 
 (BonkBonk mutters) // print the integer value held by BonkBonk
 (Student Name yells) // print the alphanumeric (ASCII/Hexadecimal) value held by Student_Name -- this allows us to print strings)
 
+(
 
 --------------------------------------------------------
 
