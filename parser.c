@@ -37,6 +37,59 @@ void help() {
 	printf("Usage: parser <filename>\n");
 }
 
+void findStudent(char *sName){
+    //create temp student
+    Student *s = (Student *) malloc(sizeof(Student));
+    strcpy(s->name, sName);
+
+    //find out which student obj you're dealing with
+    //it will be a non-null student whose name is the same as the current student
+    //set the values of current student from this student's information
+    if(zero != NULL && (strcmp(sName, zero->name) == 0)) {
+        s->value = zero->value;
+        s->num = zero->num;
+    }
+    else if(one != NULL && (strcmp(sName, one->name) == 0)) {
+        s->value = one->value;
+        s->num = one->num;
+    }
+    else if(two != NULL && (strcmp(sName, two->name) == 0)) {
+        s->value = two->value;
+        s->num = two->num;
+    }
+    else if(three != NULL && (strcmp(sName, three->name) == 0)) {
+        s->value = three->value;
+        s->num = three->num;
+    }
+    else if(four != NULL && (strcmp(sName, four->name) == 0)) {
+        s->value = four->value;
+        s->num = four->num;
+    }
+    else if(five != NULL && (strcmp(sName, five->name) == 0)) {
+        s->value = five->value;
+        s->num = five->num;
+    }
+    else if(six != NULL && (strcmp(sName, six->name) == 0)) {
+        s->value = six->value;
+        s->num = six->num;
+    }
+    else if(seven != NULL && (strcmp(sName, seven->name) == 0)) {
+        s->value = seven->value;
+        s->num = seven->num;
+    }
+    else if(eight != NULL && (strcmp(sName, eight->name) == 0)) {
+        s->value = eight->value;
+        s->num = eight->num;
+    }
+    else if(nine != NULL && (strcmp(sName, nine->name) == 0)) {
+        s->value = nine->value;
+        s->num = nine->num;
+    }
+
+    //set var current to temporary student variable
+    current = s;
+}
+
 void command(char *line) {
     // remove the \n at the end from fgets
     line[strcspn(line, "\n")] = 0;
@@ -67,22 +120,6 @@ void command(char *line) {
     //HENCE, line_words[i] will return the last word, line_words[0] will return the first
 
 
-    // adverbs
-   /* int countOfAdverbs = 0;
-    for(int x=0; x< sizeof(line_words)/sizeof(line_words[0]); ++x){
-        int c = 0;
-        char sub[2];
-        char* s = line_words[x];
-        while(c < strlen(s)-2) {
-            sub[c] = s[c+strlen(s)-2];
-            c++;
-        }
-
-        if(strcpy(s, "ly") == 0){
-            countOfAdverbs++;
-        }
-    }*/
-
     // if found "David Tyler" check to see if he says Goodmorning
     if(dt == 1 && counter == 0){
     	if(strstr(line, "Good") != NULL){
@@ -100,59 +137,11 @@ void command(char *line) {
     else if(strstr(line_words[0], ":") != NULL) {
         //this is a new variable context. change current_student to whoevers talking
         //remove the :
-        char *s_name = line_words[0];
-        s_name[strlen(s_name)-1] = 0;
+        char *sName = line_words[0];
+        sName[strlen(sName)-1] = 0;
 
-        //create a temp Student
-        Student *s = (Student *) malloc(sizeof(Student));
-        strcpy(s->name, s_name);
-
-        //find out which student obj you're dealing with
-        //it will be a non-null student whose name is the same as the current student
-        //set the values of current student from this student's information
-        if(zero != NULL && (strcmp(s_name, zero->name) == 0)) {
-            s->value = zero->value;
-            s->num = zero->num;
-        }
-        else if(one != NULL && (strcmp(s_name, one->name) == 0)) {
-            s->value = one->value;
-            s->num = one->num;
-        }
-        else if(two != NULL && (strcmp(s_name, two->name) == 0)) {
-            s->value = two->value;
-            s->num = two->num;
-        }
-        else if(three != NULL && (strcmp(s_name, three->name) == 0)) {
-            s->value = three->value;
-            s->num = three->num;
-        }
-        else if(four != NULL && (strcmp(s_name, four->name) == 0)) {
-            s->value = four->value;
-            s->num = four->num;
-        }
-        else if(five != NULL && (strcmp(s_name, five->name) == 0)) {
-            s->value = five->value;
-            s->num = five->num;
-        }
-        else if(six != NULL && (strcmp(s_name, six->name) == 0)) {
-            s->value = six->value;
-            s->num = six->num;
-        }
-        else if(seven != NULL && (strcmp(s_name, seven->name) == 0)) {
-            s->value = seven->value;
-            s->num = seven->num;
-        }
-        else if(eight != NULL && (strcmp(s_name, eight->name) == 0)) {
-            s->value = eight->value;
-            s->num = eight->num;
-        }
-        else if(nine != NULL && (strcmp(s_name, nine->name) == 0)) {
-            s->value = nine->value;
-            s->num = nine->num;
-        }
-
-        //set current to temporary student variable
-        current = s;
+        //update value of var current
+        findStudent(sName);
 
     }
     // print statement
@@ -246,6 +235,24 @@ void command(char *line) {
             else if(strstr(line_words[j], "notebook") != NULL) {
                 current->value *= -1;
             }
+            else if(strstr(line_words[j], "yells") != NULL) {
+                
+                //get student's name by removing "("
+                char *p = line_words[0];
+                p++;
+                findStudent(p);
+
+                printf("%c\n", current->value);
+            }
+            else if(strstr(line_words[j], "mutters") != NULL) {
+                
+                //get student's name by removing "("
+                char *p = line_words[0];
+                p++;
+                findStudent(p);
+
+                printf("%d\n", current->value);
+            }
         }
 
         //save current student object to the correct student
@@ -324,6 +331,8 @@ void badOpening(){
     printf("%s\n", "\nERROR: \n  >> You're missing the class opener!\n");
 }
 
+
+
 int main(int argc, char **argv) {
     
     if(argc < 2) {
@@ -336,9 +345,7 @@ int main(int argc, char **argv) {
     if(f) {
         // file exists, start parsing
         char line[100];
-        int count = 0;
         int valid = 0;
-        int hasNews = 0;
 
         while(fgets(line, sizeof(line), f) != NULL) {
 
@@ -346,7 +353,6 @@ int main(int argc, char **argv) {
             	valid = 1;
             	break;
             }
-            //count++;
         }
 
         if(valid == 1){
