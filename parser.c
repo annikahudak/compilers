@@ -168,12 +168,10 @@ void command(char *line) {
 
 
     	if(strstr(comp, "MAC") != NULL){
-    		// student->value = ____
-    		s->value = 1;
+    		s->value = 25;
     	}
     	else if(strstr(comp, "PC") != NULL){
-    		// student->value = ____
-    		s->value = -1;
+    		s->value = 10;
     	}
     	else {
     		printf("%s\n", "\nERROR: \n  >> Student did not come prepared with a computer. \n");
@@ -213,36 +211,45 @@ void command(char *line) {
         //iterate over all words in line and count adverbs
         //if adverb < 10 chars: student->value *= 2
         //if adverb > 10 chars: student->value *= 5
+        int thisLine = 0;
         for(int j = 0; j < i+1; j++) {
+
             //if an adverb
             if(strstr(line_words[j], "ly") != NULL) {
                 int length = strlen(line_words[j]);
                 //if a short adverb, *= 2
                 if(length <= 10) {
-                    current->value *= 2;
+                    thisLine *= 2;
                 }
                 //if a long adverb
                 else {
-                    current->value *= 5;
+                    thisLine *= 5;
                 }
             }
             else if(strstr(line_words[j], "participates") != NULL) {
-                current->value += 1;
+                thisLine += 1;
             }
             else if(strstr(line_words[j], "sneezes") != NULL) {
-                current->value -= 1;
+                thisLine -= 1;
             }
             else if(strstr(line_words[j], "notebook") != NULL) {
-                current->value *= -1;
+                thisLine *= -1;
             }
-            else if(strstr(line_words[j], "yells") != NULL) {
+            else if(strstr(line_words[j], "questions") != NULL) {
+                thisLine -= 5;
+            }
+            else if(strstr(line_words[j], "studies") != NULL) {
+                thisLine += 5;
+            }
+            current->value += thisLine;
+            if(strstr(line_words[j], "yells") != NULL) {
                 
                 //get student's name by removing "("
                 char *p = line_words[0];
                 p++;
                 findStudent(p);
 
-                printf("%c\n", current->value);
+                printf("%c", current->value);
             }
             else if(strstr(line_words[j], "mutters") != NULL) {
                 
@@ -251,7 +258,7 @@ void command(char *line) {
                 p++;
                 findStudent(p);
 
-                printf("%d\n", current->value);
+                printf("%d", current->value);
             }
         }
 
@@ -361,7 +368,7 @@ int main(int argc, char **argv) {
                     command(line);
                 }
             }
-            printf("Students in the classroom: \n");
+            printf("\nStudents in the classroom: \n");
             printStudents();
         }
         else{
