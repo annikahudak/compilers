@@ -29,10 +29,6 @@ Student* seven = NULL;// = (Student *) malloc(sizeof(Student));
 Student* eight = NULL;// = (Student *) malloc(sizeof(Student));
 Student* nine = NULL;//= (Student *) malloc(sizeof(Student));
 
-//Arraylist list = arraylist_create( Boolean (*equals)(const Object object_1, const Object object_2));
-
-//Student* students[10] = {zero, one, two, three, four, five, six, seven, eight, nine};
-
 void help() {
 	printf("Usage: parser <filename>\n");
 }
@@ -136,36 +132,27 @@ void command(char *line) {
       // determine which student is talking/doing an action --> set curr_student
     else if(strstr(line_words[0], ":") != NULL) {
         //this is a new variable context. change current_student to whoevers talking
-        //remove the :
+        //fixes index to remove the :
         char *sName = line_words[0];
         sName[strlen(sName)-1] = 0;
 
-        //update value of var current
+        // update value of var current
         findStudent(sName);
-
-    }
-    // print statement
-    else if(strcmp(line_words[0], "print") == 0) {
-        printf("%s",line_words[1]);
     }
     // student (variable) declaration
     else if(strncmp(line_words[0], "[", 1) == 0){
     	// new student
     	// add student to array
 
-    	//var *variable = (var *) malloc(sizeof(var));
-    	//strcpy(variable->name, line_words[1]);
-
-    	
     	char *p = line_words[0];
-    	p++; 
+    	p++; // skip first character which is "["
     	Student *s = (Student *) malloc(sizeof(Student));
     	strcpy(s->name, p);
 
+	// fourth word should be name of computer
+	// computer name initializes students values
     	char *comp = line_words[3];
     	comp[strlen(comp)-1] = 0;
-
-
 
     	if(strstr(comp, "MAC") != NULL){
     		s->value = 25;
@@ -193,35 +180,36 @@ void command(char *line) {
     	studentCounter++;
     }
 
-    //if the line denotes an action it will be surrounded by ()
-    //this if statement checks if the first character is an (
+    // if the line denotes an action it will be surrounded by ()
+    // this if statement checks if the first character is an (
     else if(strncmp(line_words[0], "(", 1) == 0) {
 
-        //take ( off of first word and ) off of last word
+        //take "(" off of first word and ")" off of last word
         char* first = line_words[0];
         first++;
         char* last = line_words[i];
         last[strlen(last)-1] = 0;
 
-        //determine action, then execute:
-        //if "participates" student->value += 1
-        //if "sneezes" student->value -=1
-        //if "notebook" student->value *= -1
+        // determine action, then execute:
+        // if "participates" student->value += 1
+        // if "sneezes" student->value -=1
+        // if "notebook" student->value *= -1
 
-        //iterate over all words in line and count adverbs
-        //if adverb < 10 chars: student->value *= 2
-        //if adverb > 10 chars: student->value *= 5
+        // value of every line individually added to student's existing value
         int thisLine = 0;
+	    
+	// iterate through all words in a line
         for(int j = 0; j < i+1; j++) {
 
-            //if an adverb
+            // iterate over all words in line and count adverbs
             if(strstr(line_words[j], "ly") != NULL) {
                 int length = strlen(line_words[j]);
-                //if a short adverb, *= 2
+		    
+                // if a short adverb, *= 2
                 if(length <= 10) {
                     thisLine *= 2;
                 }
-                //if a long adverb
+                // if a long adverb, *=5
                 else {
                     thisLine *= 5;
                 }
@@ -242,18 +230,21 @@ void command(char *line) {
                 thisLine += 5;
             }
             current->value += thisLine;
+		
+	    // prints ASCII equivalent of student's value
             if(strstr(line_words[j], "yells") != NULL) {
                 
-                //get student's name by removing "("
+                // get student's name by removing "("
                 char *p = line_words[0];
                 p++;
                 findStudent(p);
 
                 printf("%c", current->value);
             }
+	    // prints integer value of student
             else if(strstr(line_words[j], "mutters") != NULL) {
                 
-                //get student's name by removing "("
+                // get student's name by removing "("
                 char *p = line_words[0];
                 p++;
                 findStudent(p);
@@ -262,7 +253,7 @@ void command(char *line) {
             }
         }
 
-        //save current student object to the correct student
+        // save current student object to the correct student
         int student_id = current->num;
         switch(student_id){
             case 0: zero = current; break;
@@ -280,17 +271,8 @@ void command(char *line) {
     }
 
 }
-/*void fillArray(){
-	for (int i = 0; i < 10; ++i)
-	{
-		Student *temp = (Student *) malloc(sizeof(Student)); 
-		students[i] = temp;
-	}
-}*/
 void printStudents(){
-	for(int i = 0; i < 10; i++){
-		//printf("%s\n", students[i]->name );
-	}
+
     if(zero != NULL) {
         printf("STUDENT 0: %s -- %d\n", zero->name, zero->value);
     }
@@ -361,7 +343,8 @@ int main(int argc, char **argv) {
             	break;
             }
         }
-
+	
+	// valid indicates whether file starts with "Welcome to..."
         if(valid == 1){
             while(fgets(line, sizeof(line), f2) != NULL) {
                 if(strcmp(line, "\n") != 0){
