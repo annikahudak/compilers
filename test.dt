@@ -12,7 +12,7 @@ David Tyler:
 Good morning! Any tech news?
 
 Bob:
-(participates unintelligibly)
+(participates overeagerly)
 There was a global ransomeware attack...
 (studies silently productively)
 Wait I realized there's more tech news!
@@ -67,13 +67,17 @@ Can we talk about how code is compiled from Java specifically? I'm confused abou
 Steve:
 (studies conveniently)
 (questions)
+The java compiler is written in c and compiled to a non-human readable exec file right?! 
 (sneezes loudly)
 (participates)
+And then there's a java file, also written in c, which is compiled to another exec file.
 
 Sarah:
 (studies)
 (participates lots)
+Then the javac exec file interprets the actual .java file into a class file.
 (Sarah yells)
+By the way, BLESS YOU STEVE!
 
 Alice:
 (shushes Ted condescendingly)
@@ -93,6 +97,7 @@ Alice:
 (puts away notebook)
 I am done pretending to take notes.
 (Alice yells)
+I AM DONE!
 
 Billy:
 (studies diligently and effectively)
@@ -110,7 +115,7 @@ Can we leave yet?
 
 Billy:
 (studies)
-I am studying for this quiz that might never happen.
+I am studying for this quiz.
 (Billy yells)
 
 Ted:
