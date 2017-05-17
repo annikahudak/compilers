@@ -354,8 +354,6 @@ int main(int argc, char **argv) {
                     command(line);
                 }
             }
-            printf("Students in the classroom: \n");
-            printStudents();
         }
         else{
             badOpening();
