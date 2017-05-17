@@ -11,9 +11,9 @@ int counter = 0;
 int studentCounter = 0;
 
 typedef struct {
-	int num;
-	char name[256];
-	int value;
+    int num;
+    char name[256];
+    int value;
 } Student;
 
 Student* current = NULL;
@@ -30,17 +30,17 @@ Student* eight = NULL;// = (Student *) malloc(sizeof(Student));
 Student* nine = NULL;//= (Student *) malloc(sizeof(Student));
 
 void help() {
-	printf("Usage: parser <filename>\n");
+    printf("Usage: parser <filename>\n");
 }
 
 void findStudent(char *sName){
-    //create temp student
+    // create temp student
     Student *s = (Student *) malloc(sizeof(Student));
     strcpy(s->name, sName);
 
-    //find out which student obj you're dealing with
-    //it will be a non-null student whose name is the same as the current student
-    //set the values of current student from this student's information
+    // find out which student obj you're dealing with
+    // it will be a non-null student whose name is the same as the current student
+    // set the values of current student from this student's information
     if(zero != NULL && (strcmp(sName, zero->name) == 0)) {
         s->value = zero->value;
         s->num = zero->num;
@@ -82,7 +82,7 @@ void findStudent(char *sName){
         s->num = nine->num;
     }
 
-    //set var current to temporary student variable
+    // set var current to temporary student variable
     current = s;
 }
 
@@ -118,18 +118,21 @@ void command(char *line) {
 
     // if found "David Tyler" check to see if he says Goodmorning
     if(dt == 1 && counter == 0){
-    	if(strstr(line, "Good") != NULL){
-    		dtValid = 1;
-    	}else{
-    		printf("%s\n", "\nERROR: \n  >> Class must start with Goodmorning.\n");
-    	}
-    	counter++;
+        if(strstr(line, "Good") != NULL){
+            dtValid = 1;
+        }else{
+            printf("%s\n", "\nERROR: \n  >> Class must start with Goodmorning.\n");
+        }
+        counter++;
     }
     // David Tyler Goodmorning
     if(strcmp(line_words[0], "David") == 0){
-    	dt = 1;
+        dt++;
+        if(dt > 1){
+            printf("\n");
+        }
     }
-      // determine which student is talking/doing an action --> set curr_student
+    // determine which student is talking/doing an action --> set curr_student
     else if(strstr(line_words[0], ":") != NULL) {
         //this is a new variable context. change current_student to whoevers talking
         //fixes index to remove the :
@@ -141,43 +144,43 @@ void command(char *line) {
     }
     // student (variable) declaration
     else if(strncmp(line_words[0], "[", 1) == 0){
-    	// new student
-    	// add student to array
+        // new student
+        // add student to array
 
-    	char *p = line_words[0];
-    	p++; // skip first character which is "["
-    	Student *s = (Student *) malloc(sizeof(Student));
-    	strcpy(s->name, p);
+        char *p = line_words[0];
+        p++; // skip first character which is "["
+        Student *s = (Student *) malloc(sizeof(Student));
+        strcpy(s->name, p);
 
-	// fourth word should be name of computer
-	// computer name initializes students values
-    	char *comp = line_words[3];
-    	comp[strlen(comp)-1] = 0;
+        // fourth word should be name of computer
+        // computer name initializes students values
+        char *comp = line_words[3];
+        comp[strlen(comp)-1] = 0;
 
-    	if(strstr(comp, "MAC") != NULL){
-    		s->value = 25;
-    	}
-    	else if(strstr(comp, "PC") != NULL){
-    		s->value = 10;
-    	}
-    	else {
-    		printf("%s\n", "\nERROR: \n  >> Student did not come prepared with a computer. \n");
-    		return;
-    	}
+        if(strstr(comp, "MAC") != NULL){
+            s->value = 25;
+        }
+        else if(strstr(comp, "PC") != NULL){
+            s->value = 10;
+        }
+        else {
+            printf("%s\n", "\nERROR: \n  >> Student did not come prepared with a computer. \n");
+            return;
+        }
 
-    	switch(studentCounter){
-    		case 0: zero = s; zero->num = studentCounter; break;
-    		case 1: one = s; one->num = studentCounter; break;
-    		case 2: two = s; two->num = studentCounter; break;
-    		case 3: three = s; three->num = studentCounter; break;
-    		case 4: four = s; four->num = studentCounter; break;
-    		case 5: five = s; five->num = studentCounter; break;
-    		case 6: six = s; six->num = studentCounter; break;
-    		case 7: seven = s; seven->num = studentCounter; break;
-    		case 8: eight = s; eight->num = studentCounter; break;
-    		case 9: nine = s; nine->num = studentCounter; break;
-    	}
-    	studentCounter++;
+        switch(studentCounter){
+            case 0: zero = s; zero->num = studentCounter; break;
+            case 1: one = s; one->num = studentCounter; break;
+            case 2: two = s; two->num = studentCounter; break;
+            case 3: three = s; three->num = studentCounter; break;
+            case 4: four = s; four->num = studentCounter; break;
+            case 5: five = s; five->num = studentCounter; break;
+            case 6: six = s; six->num = studentCounter; break;
+            case 7: seven = s; seven->num = studentCounter; break;
+            case 8: eight = s; eight->num = studentCounter; break;
+            case 9: nine = s; nine->num = studentCounter; break;
+        }
+        studentCounter++;
     }
 
     // if the line denotes an action it will be surrounded by ()
@@ -197,14 +200,14 @@ void command(char *line) {
 
         // value of every line individually added to student's existing value
         int thisLine = 0;
-	    
-	// iterate through all words in a line
+        
+    // iterate through all words in a line
         for(int j = 0; j < i+1; j++) {
 
             // iterate over all words in line and count adverbs
             if(strstr(line_words[j], "ly") != NULL) {
                 int length = strlen(line_words[j]);
-		    
+            
                 // if a short adverb, *= 2
                 if(length <= 10) {
                     thisLine *= 2;
@@ -230,8 +233,8 @@ void command(char *line) {
                 thisLine += 5;
             }
             current->value += thisLine;
-		
-	    // prints ASCII equivalent of student's value
+        
+        // prints ASCII equivalent of student's value
             if(strstr(line_words[j], "yells") != NULL) {
                 
                 // get student's name by removing "("
@@ -241,7 +244,7 @@ void command(char *line) {
 
                 printf("%c", current->value);
             }
-	    // prints integer value of student
+        // prints integer value of student
             else if(strstr(line_words[j], "mutters") != NULL) {
                 
                 // get student's name by removing "("
@@ -306,14 +309,14 @@ void printStudents(){
 }
 
 int open(char line[]){
-	
-	const char* firstLine = line;
-	const char* opener = "Welcome to CPSC-402!";
+    
+    const char* firstLine = line;
+    const char* opener = "Welcome to CPSC-402!";
     
     if(strncmp(line, opener, 20) == 0){
-			return 1;
-	}
-	return 0;
+            return 1;
+    }
+    return 0;
 }
 
 void badOpening(){
@@ -339,19 +342,19 @@ int main(int argc, char **argv) {
         while(fgets(line, sizeof(line), f) != NULL) {
 
             if(strcmp(line, "\n") != 0 && open(line) == 1){ // && count == 0) {
-            	valid = 1;
-            	break;
+                valid = 1;
+                break;
             }
         }
-	
-	// valid indicates whether file starts with "Welcome to..."
+    
+    // valid indicates whether file starts with "Welcome to..."
         if(valid == 1){
             while(fgets(line, sizeof(line), f2) != NULL) {
                 if(strcmp(line, "\n") != 0){
                     command(line);
                 }
             }
-            printf("\nStudents in the classroom: \n");
+            printf("Students in the classroom: \n");
             printStudents();
         }
         else{
